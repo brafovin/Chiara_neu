@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Content-Planer - Dashboard</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --bg-soft: #1e293b;
+    --bg-card: #1e293b;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --today: #6366f1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  header.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  header.page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  header.page-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 110px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .calendar-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .calendar-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .btn {
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .btn:hover { background: #334155; border-color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+  .btn-danger {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+
+  .btn-danger:hover { background: var(--danger); color: white; }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .weekday {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 0;
+  }
+
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .day {
+    aspect-ratio: 1 / 1;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .day:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .day.empty {
+    background: transparent;
+    border: 1px dashed #1e293b;
+    cursor: default;
+  }
+
+  .day.empty:hover { transform: none; border-color: #1e293b; }
+
+  .day.today {
+    border-color: var(--today);
+    box-shadow: 0 0 0 1px var(--today);
+  }
+
+  .day-number {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .day.today .day-number { color: var(--today); }
+
+  .day-content {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    overflow: hidden;
+  }
+
+  .content-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--accent);
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+
+  .content-chip.status-idee { background: #64748b; }
+  .content-chip.status-in-arbeit { background: var(--warning); }
+  .content-chip.status-fertig { background: var(--accent); }
+  .content-chip.status-veroeffentlicht { background: var(--success); }
+
+  .content-more {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    overflow-y: auto;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 560px;
+    animation: slideIn 0.2s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .modal-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .modal-header .date-label {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    line-height: 1;
+    padding: 0 4px;
+  }
+
+  .close-btn:hover { color: var(--text); }
+
+  .content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .content-item {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .content-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .content-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+    word-wrap: break-word;
+  }
+
+  .content-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .meta-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: #334155;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .meta-badge.status-idee { background: #64748b; }
+  .meta-badge.status-in-arbeit { background: var(--warning); color: #1e293b; }
+  .meta-badge.status-fertig { background: var(--accent); }
+  .meta-badge.status-veroeffentlicht { background: var(--success); }
+
+  .content-item-notes {
+    font-size: 12px;
+    color: var(--text-muted);
+    word-wrap: break-word;
+  }
+
+  .content-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .icon-btn:hover { color: var(--text); border-color: var(--accent); }
+  .icon-btn.delete:hover { color: var(--danger); border-color: var(--danger); }
+
+  .empty-state {
+    text-align: center;
+    padding: 24px 0;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .form-section {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+  }
+
+  .form-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .form-field.full { grid-column: 1 / -1; }
+
+  .form-field label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  input, select, textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 11px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 72px;
+    font-family: inherit;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .calendar-wrap { padding: 12px; }
+    .day { padding: 4px; }
+    .day-number { font-size: 12px; }
+    .content-chip { font-size: 9px; padding: 1px 4px; }
+    .form-grid { grid-template-columns: 1fr; }
+    header.page-header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div>
+        <h1>Content-Planer</h1>
+        <p>Plane deine Posts, Reels, E-Mails und Calls - alles an einem Ort.</p>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Diesen Monat</div>
+          <div class="stat-value" id="stat-month">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Veröffentlicht</div>
+          <div class="stat-value" id="stat-published">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Offen</div>
+          <div class="stat-value" id="stat-open">0</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="calendar-wrap">
+      <div class="calendar-header">
+        <h2 id="month-label">-</h2>
+        <div class="nav-buttons">
+          <button class="btn" id="prev-month">‹ Zurück</button>
+          <button class="btn" id="today-btn">Heute</button>
+          <button class="btn" id="next-month">Weiter ›</button>
+        </div>
+      </div>
+
+      <div class="weekdays">
+        <div class="weekday">Mo</div>
+        <div class="weekday">Di</div>
+        <div class="weekday">Mi</div>
+        <div class="weekday">Do</div>
+        <div class="weekday">Fr</div>
+        <div class="weekday">Sa</div>
+        <div class="weekday">So</div>
+      </div>
+
+      <div class="days" id="days"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-title">Content-Plan</h3>
+          <div class="date-label" id="modal-date"></div>
+        </div>
+        <button class="close-btn" id="close-modal" aria-label="Schliessen">×</button>
+      </div>
+
+      <div class="content-list" id="content-list"></div>
+
+      <div class="form-section">
+        <h4 id="form-title">Neuen Content hinzufügen</h4>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="f-title">Titel / Hook</label>
+            <input type="text" id="f-title" placeholder="z.B. 3 Fehler beim Positionieren" />
+          </div>
+          <div class="form-field">
+            <label for="f-platform">Plattform</label>
+            <select id="f-platform">
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="YouTube">YouTube</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="E-Mail">E-Mail</option>
+              <option value="Podcast">Podcast</option>
+              <option value="Blog">Blog</option>
+              <option value="Andere">Andere</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="f-format">Format</label>
+            <select id="f-format">
+              <option value="Reel">Reel</option>
+              <option value="Story">Story</option>
+              <option value="Post">Post / Karussell</option>
+              <option value="Live">Live</option>
+              <option value="Video">Langvideo</option>
+              <option value="Newsletter">Newsletter</option>
+              <option value="Lead Magnet">Lead Magnet</option>
+              <option value="Call">Erstgespräch / Call</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="f-funnel">Funnel-Stufe</label>
+            <select id="f-funnel">
+              <option value="Awareness">Awareness</option>
+              <option value="Lead Magnet">Lead Magnet</option>
+              <option value="Nurture">Nurture / E-Mail</option>
+              <option value="Call">Call Booking</option>
+              <option value="Sale">Sale / Pitch</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="f-status">Status</label>
+            <select id="f-status">
+              <option value="idee">Idee</option>
+              <option value="in-arbeit">In Arbeit</option>
+              <option value="fertig">Fertig</option>
+              <option value="veroeffentlicht">Veröffentlicht</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label for="f-notes">Notizen / Skript</label>
+            <textarea id="f-notes" placeholder="Hook, Bulletpoints, CTA ..."></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" id="cancel-edit" style="display:none;">Abbrechen</button>
+          <button class="btn btn-primary" id="save-btn">Speichern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  (function() {
+    "use strict";
+
+    const STORAGE_KEY = "content-planner-v1";
+    const MONTH_NAMES = [
+      "Januar", "Februar", "März", "April", "Mai", "Juni",
+      "Juli", "August", "September", "Oktober", "November", "Dezember"
+    ];
+
+    let state = {
+      currentDate: new Date(),
+      selectedDate: null,
+      editingId: null,
+      data: loadData()
+    };
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    function dateKey(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function formatLongDate(date) {
+      const weekdays = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+      return `${weekdays[date.getDay()]}, ${date.getDate()}. ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    function isSameDate(a, b) {
+      return a.getFullYear() === b.getFullYear() &&
+             a.getMonth() === b.getMonth() &&
+             a.getDate() === b.getDate();
+    }
+
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+
+    function renderCalendar() {
+      const year = state.currentDate.getFullYear();
+      const month = state.currentDate.getMonth();
+      document.getElementById("month-label").textContent = `${MONTH_NAMES[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      // Monday = 0 ... Sunday = 6
+      let startOffset = (firstDay.getDay() + 6) % 7;
+
+      const daysContainer = document.getElementById("days");
+      daysContainer.innerHTML = "";
+
+      for (let i = 0; i < startOffset; i++) {
+        const empty = document.createElement("div");
+        empty.className = "day empty";
+        daysContainer.appendChild(empty);
+      }
+
+      const today = new Date();
+      let monthCount = 0;
+      let publishedCount = 0;
+      let openCount = 0;
+
+      for (let d = 1; d <= lastDay.getDate(); d++) {
+        const date = new Date(year, month, d);
+        const key = dateKey(date);
+        const items = state.data[key] || [];
+
+        const dayEl = document.createElement("div");
+        dayEl.className = "day";
+        if (isSameDate(date, today)) dayEl.classList.add("today");
+
+        const num = document.createElement("div");
+        num.className = "day-number";
+        num.textContent = d;
+        dayEl.appendChild(num);
+
+        if (items.length > 0) {
+          const contentEl = document.createElement("div");
+          contentEl.className = "day-content";
+          items.slice(0, 2).forEach(item => {
+            const chip = document.createElement("div");
+            chip.className = `content-chip status-${item.status}`;
+            chip.textContent = item.title || item.platform;
+            contentEl.appendChild(chip);
+          });
+          if (items.length > 2) {
+            const more = document.createElement("div");
+            more.className = "content-more";
+            more.textContent = `+${items.length - 2} mehr`;
+            contentEl.appendChild(more);
+          }
+          dayEl.appendChild(contentEl);
+
+          monthCount += items.length;
+          items.forEach(it => {
+            if (it.status === "veroeffentlicht") publishedCount++;
+            else openCount++;
+          });
+        }
+
+        dayEl.addEventListener("click", () => openModal(date));
+        daysContainer.appendChild(dayEl);
+      }
+
+      document.getElementById("stat-month").textContent = monthCount;
+      document.getElementById("stat-published").textContent = publishedCount;
+      document.getElementById("stat-open").textContent = openCount;
+    }
+
+    function openModal(date) {
+      state.selectedDate = date;
+      state.editingId = null;
+      document.getElementById("modal-date").textContent = formatLongDate(date);
+      resetForm();
+      renderContentList();
+      document.getElementById("modal").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.remove("active");
+      state.selectedDate = null;
+      state.editingId = null;
+    }
+
+    function renderContentList() {
+      const key = dateKey(state.selectedDate);
+      const items = state.data[key] || [];
+      const list = document.getElementById("content-list");
+      list.innerHTML = "";
+
+      if (items.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "Noch kein Content für diesen Tag geplant.";
+        list.appendChild(empty);
+        return;
+      }
+
+      items.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "content-item";
+
+        const info = document.createElement("div");
+        info.className = "content-item-info";
+
+        const title = document.createElement("div");
+        title.className = "content-item-title";
+        title.textContent = item.title || "(Ohne Titel)";
+        info.appendChild(title);
+
+        const meta = document.createElement("div");
+        meta.className = "content-item-meta";
+        meta.appendChild(makeBadge(item.platform));
+        meta.appendChild(makeBadge(item.format));
+        meta.appendChild(makeBadge(item.funnel));
+        meta.appendChild(makeBadge(statusLabel(item.status), `status-${item.status}`));
+        info.appendChild(meta);
+
+        if (item.notes) {
+          const notes = document.createElement("div");
+          notes.className = "content-item-notes";
+          notes.textContent = item.notes;
+          info.appendChild(notes);
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "content-item-actions";
+
+        const editBtn = document.createElement("button");
+        editBtn.className = "icon-btn";
+        editBtn.textContent = "Bearbeiten";
+        editBtn.addEventListener("click", () => startEdit(item.id));
+        actions.appendChild(editBtn);
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "icon-btn delete";
+        delBtn.textContent = "Löschen";
+        delBtn.addEventListener("click", () => deleteItem(item.id));
+        actions.appendChild(delBtn);
+
+        card.appendChild(info);
+        card.appendChild(actions);
+        list.appendChild(card);
+      });
+    }
+
+    function makeBadge(text, extraClass) {
+      const b = document.createElement("span");
+      b.className = "meta-badge" + (extraClass ? " " + extraClass : "");
+      b.textContent = text;
+      return b;
+    }
+
+    function statusLabel(status) {
+      switch (status) {
+        case "idee": return "Idee";
+        case "in-arbeit": return "In Arbeit";
+        case "fertig": return "Fertig";
+        case "veroeffentlicht": return "Veröffentlicht";
+        default: return status;
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("f-title").value = "";
+      document.getElementById("f-platform").value = "Instagram";
+      document.getElementById("f-format").value = "Reel";
+      document.getElementById("f-funnel").value = "Awareness";
+      document.getElementById("f-status").value = "idee";
+      document.getElementById("f-notes").value = "";
+      document.getElementById("form-title").textContent = "Neuen Content hinzufügen";
+      document.getElementById("save-btn").textContent = "Speichern";
+      document.getElementById("cancel-edit").style.display = "none";
+      state.editingId = null;
+    }
+
+    function startEdit(id) {
+      const key = dateKey(state.selectedDate);
+      const item = (state.data[key] || []).find(i => i.id === id);
+      if (!item) return;
+      state.editingId = id;
+      document.getElementById("f-title").value = item.title || "";
+      document.getElementById("f-platform").value = item.platform;
+      document.getElementById("f-format").value = item.format;
+      document.getElementById("f-funnel").value = item.funnel;
+      document.getElementById("f-status").value = item.status;
+      document.getElementById("f-notes").value = item.notes || "";
+      document.getElementById("form-title").textContent = "Content bearbeiten";
+      document.getElementById("save-btn").textContent = "Aktualisieren";
+      document.getElementById("cancel-edit").style.display = "inline-block";
+      document.getElementById("f-title").focus();
+    }
+
+    function saveItem() {
+      const title = document.getElementById("f-title").value.trim();
+      const platform = document.getElementById("f-platform").value;
+      const format = document.getElementById("f-format").value;
+      const funnel = document.getElementById("f-funnel").value;
+      const status = document.getElementById("f-status").value;
+      const notes = document.getElementById("f-notes").value.trim();
+
+      if (!title) {
+        alert("Bitte gib einen Titel / Hook ein.");
+        return;
+      }
+
+      const key = dateKey(state.selectedDate);
+      if (!state.data[key]) state.data[key] = [];
+
+      if (state.editingId) {
+        const idx = state.data[key].findIndex(i => i.id === state.editingId);
+        if (idx >= 0) {
+          state.data[key][idx] = { id: state.editingId, title, platform, format, funnel, status, notes };
+        }
+      } else {
+        state.data[key].push({
+          id: generateId(),
+          title, platform, format, funnel, status, notes
+        });
+      }
+
+      saveData();
+      resetForm();
+      renderContentList();
+      renderCalendar();
+    }
+
+    function deleteItem(id) {
+      if (!confirm("Diesen Content-Eintrag wirklich löschen?")) return;
+      const key = dateKey(state.selectedDate);
+      state.data[key] = (state.data[key] || []).filter(i => i.id !== id);
+      if (state.data[key].length === 0) delete state.data[key];
+      saveData();
+      if (state.editingId === id) resetForm();
+      renderContentList();
+      renderCalendar();
+    }
+
+    // Event Listeners
+    document.getElementById("prev-month").addEventListener("click", () => {
+      state.currentDate.setMonth(state.currentDate.getMonth() - 1);
+      renderCalendar();
+    });
+
+    document.getElementById("next-month").addEventListener("click", () => {
+      state.currentDate.setMonth(state.currentDate.getMonth() + 1);
+      renderCalendar();
+    });
+
+    document.getElementById("today-btn").addEventListener("click", () => {
+      state.currentDate = new Date();
+      renderCalendar();
+    });
+
+    document.getElementById("close-modal").addEventListener("click", closeModal);
+    document.getElementById("modal").addEventListener("click", (e) => {
+      if (e.target.id === "modal") closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    document.getElementById("save-btn").addEventListener("click", saveItem);
+    document.getElementById("cancel-edit").addEventListener("click", resetForm);
+
+    renderCalendar();
+  })();
+</script>
+</body>
+</html>
