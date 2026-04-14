@@ -440,6 +440,250 @@
     margin-top: 14px;
   }
 
+  /* AI & Tools */
+  .toolbar-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ai-section {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ai-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-section .ai-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .ai-section .ai-full { grid-column: 1 / -1; }
+
+  .ai-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .ai-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .checkbox-row input { accent-color: var(--accent); }
+
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .ai-status {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    min-height: 16px;
+  }
+
+  .ai-status.error { color: var(--danger); }
+  .ai-status.success { color: var(--success); }
+
+  .ai-preview {
+    display: none;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 12px;
+  }
+
+  .ai-preview.active { display: block; }
+
+  .ai-preview-block {
+    margin-bottom: 10px;
+  }
+
+  .ai-preview-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .ai-preview-text {
+    font-size: 13px;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .ai-preview-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  /* Settings Modal - Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+
+  .tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+
+  .tab:hover { color: var(--text); }
+
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .warning-box {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #fbbf24;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .info-box {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .modal-wide {
+    max-width: 680px;
+  }
+
+  .batch-progress {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 13px;
+    display: none;
+  }
+
+  .batch-progress.active { display: block; }
+
+  .batch-progress-bar {
+    background: var(--bg-soft);
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .batch-progress-fill {
+    background: var(--accent);
+    height: 100%;
+    transition: width 0.3s ease;
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .checkbox-grid label {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .checkbox-grid label:has(input:checked) {
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.1);
+  }
+
+  .range-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .range-row input[type="range"] { flex: 1; accent-color: var(--accent); }
+
+  .range-value {
+    min-width: 32px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
   @media (max-width: 640px) {
     body { padding: 12px; }
     .calendar-wrap { padding: 12px; }
@@ -447,6 +691,8 @@
     .day-number { font-size: 12px; }
     .content-chip { font-size: 9px; padding: 1px 4px; }
     .form-grid { grid-template-columns: 1fr; }
+    .ai-section .ai-row { grid-template-columns: 1fr; }
+    .checkbox-grid { grid-template-columns: repeat(2, 1fr); }
     header.page-header h1 { font-size: 22px; }
   }
 </style>
@@ -473,6 +719,11 @@
         </div>
       </div>
     </header>
+
+    <div class="toolbar-buttons" style="margin-bottom: 16px;">
+      <button class="btn btn-primary" id="batch-plan-btn">⚡ Batch-Planen mit KI</button>
+      <button class="btn" id="settings-btn">⚙ Einstellungen</button>
+    </div>
 
     <div class="calendar-wrap">
       <div class="calendar-header">
@@ -510,6 +761,65 @@
       </div>
 
       <div class="content-list" id="content-list"></div>
+
+      <div class="ai-section">
+        <h4>🤖 KI-Skript-Generator</h4>
+        <div class="ai-hint">Gib ein Thema oder Stichwort ein - die KI recherchiert und schreibt ein komplettes Video-Skript auf Basis deines Brand-Profils.</div>
+        <div class="ai-row">
+          <div class="form-field ai-full">
+            <label for="ai-topic">Thema / Stichwort</label>
+            <input type="text" id="ai-topic" placeholder="z.B. 3 Fehler beim Nischen-Pitch" />
+          </div>
+          <div class="form-field">
+            <label for="ai-platform">Plattform</label>
+            <select id="ai-platform">
+              <option value="Instagram">Instagram Reel</option>
+              <option value="TikTok">TikTok</option>
+              <option value="YouTube">YouTube Shorts</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="ai-funnel">Funnel-Stufe</label>
+            <select id="ai-funnel">
+              <option value="Awareness">Awareness</option>
+              <option value="Lead Magnet">Lead Magnet</option>
+              <option value="Nurture">Nurture</option>
+              <option value="Call">Call Booking</option>
+              <option value="Sale">Sale / Pitch</option>
+            </select>
+          </div>
+        </div>
+        <div class="ai-actions">
+          <button class="btn btn-primary" id="ai-generate-btn">🤖 Skript generieren</button>
+          <label class="checkbox-row">
+            <input type="checkbox" id="ai-web-search" checked />
+            Mit Web-Recherche
+          </label>
+        </div>
+        <div class="ai-status" id="ai-status"></div>
+        <div class="ai-preview" id="ai-preview">
+          <div class="ai-preview-block">
+            <div class="ai-preview-label">Hook</div>
+            <div class="ai-preview-text" id="ai-prev-hook"></div>
+          </div>
+          <div class="ai-preview-block">
+            <div class="ai-preview-label">Skript</div>
+            <div class="ai-preview-text" id="ai-prev-script"></div>
+          </div>
+          <div class="ai-preview-block">
+            <div class="ai-preview-label">Call to Action</div>
+            <div class="ai-preview-text" id="ai-prev-cta"></div>
+          </div>
+          <div class="ai-preview-block">
+            <div class="ai-preview-label">Produktions-Notizen</div>
+            <div class="ai-preview-text" id="ai-prev-notes"></div>
+          </div>
+          <div class="ai-preview-actions">
+            <button class="btn btn-primary" id="ai-apply-btn">Ins Formular übernehmen</button>
+            <button class="btn" id="ai-discard-btn">Verwerfen</button>
+          </div>
+        </div>
+      </div>
 
       <div class="form-section">
         <h4 id="form-title">Neuen Content hinzufügen</h4>
@@ -576,21 +886,211 @@
     </div>
   </div>
 
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal modal-wide" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <h3>Einstellungen</h3>
+          <div class="date-label">API-Zugang & Brand-Profil</div>
+        </div>
+        <button class="close-btn" id="close-settings">×</button>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="api">API-Zugang</button>
+        <button class="tab" data-tab="brand">Brand-Profil</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-api">
+        <div class="warning-box">
+          <strong>Wichtig:</strong> Dein API-Key wird nur lokal in deinem Browser gespeichert (localStorage). Teile diese HTML-Datei NICHT mit anderen und lade sie nicht öffentlich hoch, sonst wird dein Key mitgegeben.
+        </div>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="s-api-key">Claude API-Key</label>
+            <input type="password" id="s-api-key" placeholder="sk-ant-..." />
+          </div>
+          <div class="form-field">
+            <label for="s-model">Modell</label>
+            <select id="s-model">
+              <option value="claude-sonnet-4-6">Claude Sonnet 4.6 (empfohlen)</option>
+              <option value="claude-opus-4-6">Claude Opus 4.6 (beste Qualität)</option>
+              <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (schnell/günstig)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Web-Suche Standard</label>
+            <label class="checkbox-row" style="padding: 9px 0;">
+              <input type="checkbox" id="s-web-search" checked />
+              Standardmäßig aktiv
+            </label>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top: 14px;">
+          Du brauchst einen Claude API-Key von <strong>console.anthropic.com</strong>. Der Key beginnt mit <code>sk-ant-</code>. Guthaben (Credits) musst du dort einmalig aufladen.
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-brand">
+        <div class="info-box">
+          Fülle dein Brand-Profil einmalig aus. Die KI verwendet diese Angaben bei jedem Skript, damit es wie von dir klingt und zu deinem Angebot passt.
+        </div>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label for="b-niche">Nische / Thema</label>
+            <input type="text" id="b-niche" placeholder="z.B. Online-Business-Coaching für Solo-Selbstständige" />
+          </div>
+          <div class="form-field full">
+            <label for="b-audience">Zielgruppe / Avatar</label>
+            <textarea id="b-audience" placeholder="Wen sprichst du an? Demografie, Pain Points, Wünsche ..."></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="b-tone">Tonalität / Sprachstil</label>
+            <textarea id="b-tone" placeholder="z.B. direkt, warm, ohne Buzzwords. Duzt die Leute. Nutzt konkrete Beispiele."></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="b-positioning">Positionierung / USP</label>
+            <textarea id="b-positioning" placeholder="Was macht dich einzigartig? Warum sollte man dir zuhören?"></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="b-offer">Angebot / Hauptprodukt</label>
+            <textarea id="b-offer" placeholder="Was verkaufst du? Coaching-Paket, Preisspanne, für wen genau ..."></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="b-avoid">Zu vermeiden</label>
+            <textarea id="b-avoid" placeholder="Themen, Wörter oder Claims, die nicht vorkommen dürfen"></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="b-examples">Beispiel-Hooks die gut funktionieren (optional)</label>
+            <textarea id="b-examples" placeholder="Ein paar deiner besten Hooks/Openers als Stil-Referenz"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" id="settings-cancel">Abbrechen</button>
+        <button class="btn btn-primary" id="settings-save">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Batch Modal -->
+  <div class="modal-overlay" id="batch-modal">
+    <div class="modal modal-wide" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <h3>⚡ Batch-Planen mit KI</h3>
+          <div class="date-label">Ganze Woche oder Monat auf einmal generieren</div>
+        </div>
+        <button class="close-btn" id="close-batch">×</button>
+      </div>
+
+      <div class="info-box">
+        Die KI erstellt auf Basis eines Über-Themas automatisch mehrere Video-Skripte und verteilt sie im Kalender. Jedes Skript wird einzeln recherchiert und an dein Brand-Profil angepasst.
+      </div>
+
+      <div class="form-grid">
+        <div class="form-field full">
+          <label for="batch-theme">Über-Thema / Content-Säule</label>
+          <input type="text" id="batch-theme" placeholder="z.B. Positionierung für Coaches" />
+        </div>
+        <div class="form-field">
+          <label for="batch-range">Zeitraum</label>
+          <select id="batch-range">
+            <option value="7">Nächste 7 Tage</option>
+            <option value="14">Nächste 14 Tage</option>
+            <option value="30">Nächste 30 Tage</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="batch-start">Startdatum</label>
+          <input type="date" id="batch-start" />
+        </div>
+        <div class="form-field full">
+          <label>Posts pro Woche: <span class="range-value" id="batch-count-val">4</span></label>
+          <div class="range-row">
+            <span style="font-size:11px;color:var(--text-muted);">1</span>
+            <input type="range" id="batch-count" min="1" max="7" value="4" />
+            <span style="font-size:11px;color:var(--text-muted);">7</span>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label>Plattformen (mindestens eine)</label>
+          <div class="checkbox-grid" id="batch-platforms">
+            <label><input type="checkbox" value="Instagram" checked /> Instagram Reel</label>
+            <label><input type="checkbox" value="TikTok" checked /> TikTok</label>
+            <label><input type="checkbox" value="YouTube" /> YouTube Shorts</label>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label>Funnel-Verteilung (wähle aus)</label>
+          <div class="checkbox-grid" id="batch-funnels">
+            <label><input type="checkbox" value="Awareness" checked /> Awareness</label>
+            <label><input type="checkbox" value="Lead Magnet" checked /> Lead Magnet</label>
+            <label><input type="checkbox" value="Nurture" /> Nurture</label>
+            <label><input type="checkbox" value="Call" checked /> Call Booking</label>
+            <label><input type="checkbox" value="Sale" /> Sale</label>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label class="checkbox-row" style="margin-top:4px;">
+            <input type="checkbox" id="batch-web-search" checked />
+            Mit Web-Recherche für jedes Skript
+          </label>
+        </div>
+      </div>
+
+      <div class="batch-progress" id="batch-progress">
+        <div id="batch-progress-text">Generiere Plan...</div>
+        <div class="batch-progress-bar"><div class="batch-progress-fill" id="batch-progress-fill" style="width:0%;"></div></div>
+      </div>
+
+      <div class="ai-status" id="batch-status"></div>
+
+      <div class="form-actions">
+        <button class="btn" id="batch-cancel">Abbrechen</button>
+        <button class="btn btn-primary" id="batch-generate-btn">🤖 Plan generieren</button>
+      </div>
+    </div>
+  </div>
+
 <script>
   (function() {
     "use strict";
 
     const STORAGE_KEY = "content-planner-v1";
+    const SETTINGS_KEY = "content-planner-settings-v1";
+    const BRAND_KEY = "content-planner-brand-v1";
     const MONTH_NAMES = [
       "Januar", "Februar", "März", "April", "Mai", "Juni",
       "Juli", "August", "September", "Oktober", "November", "Dezember"
     ];
 
+    const DEFAULT_SETTINGS = {
+      apiKey: "",
+      model: "claude-sonnet-4-6",
+      webSearchEnabled: true
+    };
+
+    const DEFAULT_BRAND = {
+      niche: "",
+      audience: "",
+      tone: "",
+      positioning: "",
+      offer: "",
+      avoid: "",
+      examples: ""
+    };
+
     let state = {
       currentDate: new Date(),
       selectedDate: null,
       editingId: null,
-      data: loadData()
+      data: loadData(),
+      settings: loadSettings(),
+      brand: loadBrand(),
+      lastAiResult: null
     };
 
     function loadData() {
@@ -604,6 +1104,32 @@
 
     function saveData() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem(SETTINGS_KEY);
+        return raw ? Object.assign({}, DEFAULT_SETTINGS, JSON.parse(raw)) : Object.assign({}, DEFAULT_SETTINGS);
+      } catch (e) {
+        return Object.assign({}, DEFAULT_SETTINGS);
+      }
+    }
+
+    function saveSettings() {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.settings));
+    }
+
+    function loadBrand() {
+      try {
+        const raw = localStorage.getItem(BRAND_KEY);
+        return raw ? Object.assign({}, DEFAULT_BRAND, JSON.parse(raw)) : Object.assign({}, DEFAULT_BRAND);
+      } catch (e) {
+        return Object.assign({}, DEFAULT_BRAND);
+      }
+    }
+
+    function saveBrand() {
+      localStorage.setItem(BRAND_KEY, JSON.stringify(state.brand));
     }
 
     function dateKey(date) {
@@ -705,6 +1231,14 @@
       document.getElementById("modal-date").textContent = formatLongDate(date);
       resetForm();
       renderContentList();
+      // Reset AI section
+      document.getElementById("ai-topic").value = "";
+      document.getElementById("ai-preview").classList.remove("active");
+      state.lastAiResult = null;
+      setAiStatus("");
+      if (state.settings.webSearchEnabled !== false) {
+        document.getElementById("ai-web-search").checked = true;
+      }
       document.getElementById("modal").classList.add("active");
     }
 
@@ -868,6 +1402,492 @@
       renderCalendar();
     }
 
+    // ============================================================
+    // Settings Modal
+    // ============================================================
+    function openSettingsModal() {
+      document.getElementById("s-api-key").value = state.settings.apiKey || "";
+      document.getElementById("s-model").value = state.settings.model || "claude-sonnet-4-6";
+      document.getElementById("s-web-search").checked = state.settings.webSearchEnabled !== false;
+
+      document.getElementById("b-niche").value = state.brand.niche || "";
+      document.getElementById("b-audience").value = state.brand.audience || "";
+      document.getElementById("b-tone").value = state.brand.tone || "";
+      document.getElementById("b-positioning").value = state.brand.positioning || "";
+      document.getElementById("b-offer").value = state.brand.offer || "";
+      document.getElementById("b-avoid").value = state.brand.avoid || "";
+      document.getElementById("b-examples").value = state.brand.examples || "";
+
+      document.getElementById("settings-modal").classList.add("active");
+    }
+
+    function closeSettingsModal() {
+      document.getElementById("settings-modal").classList.remove("active");
+    }
+
+    function saveSettingsFromForm() {
+      state.settings.apiKey = document.getElementById("s-api-key").value.trim();
+      state.settings.model = document.getElementById("s-model").value;
+      state.settings.webSearchEnabled = document.getElementById("s-web-search").checked;
+      saveSettings();
+
+      state.brand.niche = document.getElementById("b-niche").value.trim();
+      state.brand.audience = document.getElementById("b-audience").value.trim();
+      state.brand.tone = document.getElementById("b-tone").value.trim();
+      state.brand.positioning = document.getElementById("b-positioning").value.trim();
+      state.brand.offer = document.getElementById("b-offer").value.trim();
+      state.brand.avoid = document.getElementById("b-avoid").value.trim();
+      state.brand.examples = document.getElementById("b-examples").value.trim();
+      saveBrand();
+
+      closeSettingsModal();
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll(".tab").forEach(t => {
+        t.classList.toggle("active", t.dataset.tab === tabName);
+      });
+      document.querySelectorAll(".tab-panel").forEach(p => {
+        p.classList.toggle("active", p.id === "tab-" + tabName);
+      });
+    }
+
+    // ============================================================
+    // Claude API Integration
+    // ============================================================
+    function buildSystemPrompt() {
+      const b = state.brand;
+      const hasAny = b.niche || b.audience || b.tone || b.positioning || b.offer;
+      let prompt = "Du bist ein Content-Strategie-Assistent, der Shortform-Video-Skripte für Social Media schreibt.\n\n";
+
+      if (hasAny) {
+        prompt += "BRAND-PROFIL:\n";
+        if (b.niche) prompt += `- Nische: ${b.niche}\n`;
+        if (b.audience) prompt += `- Zielgruppe: ${b.audience}\n`;
+        if (b.tone) prompt += `- Tonalität: ${b.tone}\n`;
+        if (b.positioning) prompt += `- Positionierung/USP: ${b.positioning}\n`;
+        if (b.offer) prompt += `- Angebot: ${b.offer}\n`;
+        if (b.avoid) prompt += `- Zu vermeiden: ${b.avoid}\n`;
+        if (b.examples) prompt += `- Beispiel-Hooks als Stil-Referenz: ${b.examples}\n`;
+        prompt += "\n";
+      }
+
+      prompt += "SKRIPT-STRUKTUR (IMMER einhalten):\n";
+      prompt += "1. HOOK: max. 2 Sätze, muss in 3 Sekunden Scrollen stoppen\n";
+      prompt += "2. PROBLEM/KONTEXT: 2-3 Sätze, Relatable-Moment\n";
+      prompt += "3. VALUE/LÖSUNG: 3-5 konkrete, umsetzbare Punkte\n";
+      prompt += "4. CTA: klarer Call-to-Action passend zur Funnel-Stufe\n\n";
+
+      prompt += "FUNNEL-STUFEN:\n";
+      prompt += "- Awareness: Reichweite, Problem-Bewusstsein, kein harter Pitch\n";
+      prompt += "- Lead Magnet: Gratis-Ressource anbieten (Guide, Checkliste, Webinar)\n";
+      prompt += "- Nurture: Vertrauen aufbauen, Expertise zeigen, Story erzählen\n";
+      prompt += "- Call: Erstgespräch / Discovery Call aktiv anbieten\n";
+      prompt += "- Sale: Direktes Angebot, Scarcity, klare Buy-Now-CTA\n\n";
+
+      prompt += "WICHTIG: Antworte IMMER AUSSCHLIESSLICH mit einem gültigen JSON-Objekt (kein Markdown-Code-Block, keine Erklärung davor/danach). Schema:\n";
+      prompt += '{\n';
+      prompt += '  "title": "Titel max 60 Zeichen, Hook-artig",\n';
+      prompt += '  "platform": "Instagram|TikTok|YouTube",\n';
+      prompt += '  "format": "Reel",\n';
+      prompt += '  "funnel": "Awareness|Lead Magnet|Nurture|Call|Sale",\n';
+      prompt += '  "hook": "Die ersten 1-2 Sätze zum Einsprechen",\n';
+      prompt += '  "script": "Komplettes Skript zum Einsprechen, ca. 30-60 Sekunden Sprechzeit",\n';
+      prompt += '  "cta": "Konkreter Call-to-Action",\n';
+      prompt += '  "notes": "Produktions-Hinweise: Schnitt, Overlay-Text, B-Roll-Ideen, Hashtags"\n';
+      prompt += '}';
+
+      return prompt;
+    }
+
+    async function callClaude(userMessage, options) {
+      options = options || {};
+      if (!state.settings.apiKey) {
+        throw new Error("Kein API-Key. Öffne die Einstellungen und trage deinen Claude API-Key ein.");
+      }
+
+      const tools = [];
+      if (options.webSearch) {
+        tools.push({
+          type: "web_search_20250305",
+          name: "web_search",
+          max_uses: 5
+        });
+      }
+
+      const body = {
+        model: state.settings.model || "claude-sonnet-4-6",
+        max_tokens: options.maxTokens || 2048,
+        system: [
+          {
+            type: "text",
+            text: buildSystemPrompt(),
+            cache_control: { type: "ephemeral" }
+          }
+        ],
+        messages: [
+          { role: "user", content: userMessage }
+        ]
+      };
+
+      if (tools.length > 0) {
+        body.tools = tools;
+      }
+
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-api-key": state.settings.apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (!response.ok) {
+        let errMsg = `HTTP ${response.status}`;
+        try {
+          const errData = await response.json();
+          if (errData.error && errData.error.message) {
+            errMsg = errData.error.message;
+          }
+        } catch (e) {}
+        if (response.status === 401) {
+          throw new Error("API-Key ungültig. Bitte in den Einstellungen überprüfen.");
+        }
+        if (response.status === 429) {
+          throw new Error("Rate Limit erreicht. Kurz warten und erneut versuchen.");
+        }
+        throw new Error("API-Fehler: " + errMsg);
+      }
+
+      const result = await response.json();
+      return result;
+    }
+
+    function extractTextFromResponse(apiResponse) {
+      if (!apiResponse || !apiResponse.content) return "";
+      const textBlocks = apiResponse.content.filter(b => b.type === "text");
+      if (textBlocks.length === 0) return "";
+      return textBlocks[textBlocks.length - 1].text || "";
+    }
+
+    function parseJsonFromText(text) {
+      if (!text) return null;
+      let cleaned = text.trim();
+      // Strip markdown code block if present
+      const codeBlockMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/);
+      if (codeBlockMatch) {
+        cleaned = codeBlockMatch[1].trim();
+      }
+      // Try to find JSON object or array
+      try {
+        return JSON.parse(cleaned);
+      } catch (e) {
+        // Fallback: find first { or [ and last } or ]
+        const firstObj = cleaned.indexOf("{");
+        const firstArr = cleaned.indexOf("[");
+        let start = -1, endChar = "";
+        if (firstArr !== -1 && (firstObj === -1 || firstArr < firstObj)) {
+          start = firstArr;
+          endChar = "]";
+        } else if (firstObj !== -1) {
+          start = firstObj;
+          endChar = "}";
+        }
+        if (start >= 0) {
+          const end = cleaned.lastIndexOf(endChar);
+          if (end > start) {
+            try {
+              return JSON.parse(cleaned.slice(start, end + 1));
+            } catch (e2) {}
+          }
+        }
+      }
+      return null;
+    }
+
+    // ============================================================
+    // Single Script Generation (in day popup)
+    // ============================================================
+    async function generateSingleScript() {
+      const topic = document.getElementById("ai-topic").value.trim();
+      const platform = document.getElementById("ai-platform").value;
+      const funnel = document.getElementById("ai-funnel").value;
+      const useWeb = document.getElementById("ai-web-search").checked;
+
+      if (!topic) {
+        setAiStatus("Bitte gib ein Thema ein.", "error");
+        return;
+      }
+
+      if (!state.settings.apiKey) {
+        setAiStatus("Kein API-Key. Öffne die Einstellungen.", "error");
+        openSettingsModal();
+        return;
+      }
+
+      const btn = document.getElementById("ai-generate-btn");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Generiere...';
+      setAiStatus(useWeb ? "Recherchiere im Web und schreibe Skript..." : "Schreibe Skript...");
+      document.getElementById("ai-preview").classList.remove("active");
+
+      try {
+        const userMessage = `Schreibe ein Shortform-Video-Skript für ${platform} in der Funnel-Stufe "${funnel}" zum Thema: "${topic}".
+
+${useWeb ? "Recherchiere zuerst aktuelle Informationen, Trends, Studien oder News zum Thema, bevor du das Skript schreibst. Bau die frischesten/spannendsten Findings in Hook und Skript ein.\n\n" : ""}Antworte AUSSCHLIESSLICH mit dem JSON-Objekt laut Schema.`;
+
+        const response = await callClaude(userMessage, { webSearch: useWeb, maxTokens: 2048 });
+        const text = extractTextFromResponse(response);
+        const parsed = parseJsonFromText(text);
+
+        if (!parsed || typeof parsed !== "object") {
+          // Fallback: show raw text
+          state.lastAiResult = {
+            title: topic,
+            platform: platform,
+            format: "Reel",
+            funnel: funnel,
+            hook: "",
+            script: text,
+            cta: "",
+            notes: "(Konnte Antwort nicht als JSON parsen - Rohtext übernommen)"
+          };
+        } else {
+          state.lastAiResult = {
+            title: parsed.title || topic,
+            platform: parsed.platform || platform,
+            format: parsed.format || "Reel",
+            funnel: parsed.funnel || funnel,
+            hook: parsed.hook || "",
+            script: parsed.script || "",
+            cta: parsed.cta || "",
+            notes: parsed.notes || ""
+          };
+        }
+
+        renderAiPreview(state.lastAiResult);
+        setAiStatus("Skript generiert - unten kannst du es ins Formular übernehmen.", "success");
+      } catch (err) {
+        console.error(err);
+        setAiStatus("Fehler: " + err.message, "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "🤖 Skript generieren";
+      }
+    }
+
+    function renderAiPreview(result) {
+      document.getElementById("ai-prev-hook").textContent = result.hook || "(kein Hook)";
+      document.getElementById("ai-prev-script").textContent = result.script || "(kein Skript)";
+      document.getElementById("ai-prev-cta").textContent = result.cta || "(kein CTA)";
+      document.getElementById("ai-prev-notes").textContent = result.notes || "(keine Notizen)";
+      document.getElementById("ai-preview").classList.add("active");
+    }
+
+    function applyAiResultToForm() {
+      if (!state.lastAiResult) return;
+      const r = state.lastAiResult;
+      document.getElementById("f-title").value = r.title || "";
+      if (r.platform) document.getElementById("f-platform").value = r.platform;
+      if (r.format) document.getElementById("f-format").value = r.format;
+      if (r.funnel) document.getElementById("f-funnel").value = r.funnel;
+      const fullScript = [
+        r.hook ? "HOOK:\n" + r.hook : "",
+        r.script ? "\nSKRIPT:\n" + r.script : "",
+        r.cta ? "\nCTA:\n" + r.cta : "",
+        r.notes ? "\nNOTIZEN:\n" + r.notes : ""
+      ].filter(Boolean).join("\n");
+      document.getElementById("f-notes").value = fullScript;
+      setAiStatus("Ins Formular übernommen. Jetzt unten 'Speichern' klicken.", "success");
+      document.getElementById("ai-preview").classList.remove("active");
+      document.getElementById("f-title").focus();
+    }
+
+    function discardAiResult() {
+      state.lastAiResult = null;
+      document.getElementById("ai-preview").classList.remove("active");
+      setAiStatus("");
+    }
+
+    function setAiStatus(text, cls) {
+      const el = document.getElementById("ai-status");
+      el.textContent = text || "";
+      el.className = "ai-status" + (cls ? " " + cls : "");
+    }
+
+    // ============================================================
+    // Batch Plan Generation
+    // ============================================================
+    function openBatchModal() {
+      if (!state.settings.apiKey) {
+        alert("Bitte zuerst in den Einstellungen einen Claude API-Key eintragen.");
+        openSettingsModal();
+        return;
+      }
+      const today = new Date();
+      document.getElementById("batch-start").value = dateKey(today);
+      document.getElementById("batch-theme").value = "";
+      document.getElementById("batch-count").value = 4;
+      document.getElementById("batch-count-val").textContent = "4";
+      document.getElementById("batch-web-search").checked = state.settings.webSearchEnabled !== false;
+      document.getElementById("batch-progress").classList.remove("active");
+      document.getElementById("batch-progress-fill").style.width = "0%";
+      setBatchStatus("");
+      document.getElementById("batch-modal").classList.add("active");
+    }
+
+    function closeBatchModal() {
+      document.getElementById("batch-modal").classList.remove("active");
+    }
+
+    function setBatchStatus(text, cls) {
+      const el = document.getElementById("batch-status");
+      el.textContent = text || "";
+      el.className = "ai-status" + (cls ? " " + cls : "");
+    }
+
+    function getCheckedValues(selector) {
+      const out = [];
+      document.querySelectorAll(selector).forEach(cb => {
+        if (cb.checked) out.push(cb.value);
+      });
+      return out;
+    }
+
+    function pickDistributedDates(startDate, rangeDays, postsPerWeek) {
+      // Generate an array of dates with N posts per week, evenly spread
+      const totalPosts = Math.max(1, Math.round((rangeDays / 7) * postsPerWeek));
+      const dates = [];
+      const spacing = rangeDays / totalPosts;
+      for (let i = 0; i < totalPosts; i++) {
+        const d = new Date(startDate);
+        d.setDate(d.getDate() + Math.round(i * spacing));
+        dates.push(d);
+      }
+      return dates;
+    }
+
+    async function generateBatchPlan() {
+      const theme = document.getElementById("batch-theme").value.trim();
+      const range = parseInt(document.getElementById("batch-range").value, 10);
+      const startStr = document.getElementById("batch-start").value;
+      const postsPerWeek = parseInt(document.getElementById("batch-count").value, 10);
+      const platforms = getCheckedValues("#batch-platforms input");
+      const funnels = getCheckedValues("#batch-funnels input");
+      const useWeb = document.getElementById("batch-web-search").checked;
+
+      if (!theme) { setBatchStatus("Bitte Über-Thema angeben.", "error"); return; }
+      if (platforms.length === 0) { setBatchStatus("Wähle mindestens eine Plattform.", "error"); return; }
+      if (funnels.length === 0) { setBatchStatus("Wähle mindestens eine Funnel-Stufe.", "error"); return; }
+      if (!startStr) { setBatchStatus("Bitte Startdatum wählen.", "error"); return; }
+
+      const startDate = new Date(startStr);
+      const dates = pickDistributedDates(startDate, range, postsPerWeek);
+      const totalPosts = dates.length;
+
+      const btn = document.getElementById("batch-generate-btn");
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Generiere...';
+      document.getElementById("batch-progress").classList.add("active");
+      setBatchStatus("");
+
+      // We call Claude in chunks of max 5 posts per call to keep prompts manageable
+      const CHUNK_SIZE = 5;
+      let generated = 0;
+      let createdCount = 0;
+
+      try {
+        for (let i = 0; i < dates.length; i += CHUNK_SIZE) {
+          const chunkDates = dates.slice(i, i + CHUNK_SIZE);
+          updateBatchProgress(generated, totalPosts, `Generiere Skripte ${generated + 1}-${Math.min(generated + chunkDates.length, totalPosts)} von ${totalPosts}...`);
+
+          const dateList = chunkDates.map((d, idx) => {
+            const platform = platforms[(i + idx) % platforms.length];
+            const funnel = funnels[(i + idx) % funnels.length];
+            return `${idx + 1}. Datum: ${dateKey(d)}, Plattform: ${platform}, Funnel-Stufe: ${funnel}`;
+          }).join("\n");
+
+          const userMessage = `Erstelle ${chunkDates.length} unterschiedliche Shortform-Video-Skripte zum Über-Thema: "${theme}".
+
+Jedes Skript muss einen eigenen Winkel/Angle haben - keine Wiederholungen. Nutze das gesamte Thema-Spektrum (verschiedene Unter-Themen, Beispiele, Perspektiven).
+
+Plane für diese Slots:
+${dateList}
+
+${useWeb ? "Recherchiere aktuelle Informationen zum Über-Thema und verteile die frischesten/spannendsten Findings auf die verschiedenen Skripte.\n\n" : ""}Antworte AUSSCHLIESSLICH mit einem JSON-Array, wo jedes Element das Skript-Schema erfüllt UND zusätzlich ein "date" Feld mit dem Datum (YYYY-MM-DD) enthält. Die Reihenfolge der Objekte muss der obigen Slot-Liste entsprechen.
+
+Schema pro Objekt:
+{
+  "date": "YYYY-MM-DD",
+  "title": "...",
+  "platform": "...",
+  "format": "Reel",
+  "funnel": "...",
+  "hook": "...",
+  "script": "...",
+  "cta": "...",
+  "notes": "..."
+}`;
+
+          const response = await callClaude(userMessage, { webSearch: useWeb, maxTokens: 4096 });
+          const text = extractTextFromResponse(response);
+          const parsed = parseJsonFromText(text);
+
+          if (!Array.isArray(parsed)) {
+            throw new Error("Claude hat kein JSON-Array zurückgegeben. Versuche es erneut oder mit weniger Posts pro Call.");
+          }
+
+          parsed.forEach((item, idx) => {
+            const targetDate = chunkDates[idx];
+            if (!targetDate) return;
+            const key = dateKey(targetDate);
+            if (!state.data[key]) state.data[key] = [];
+
+            const fullScript = [
+              item.hook ? "HOOK:\n" + item.hook : "",
+              item.script ? "\nSKRIPT:\n" + item.script : "",
+              item.cta ? "\nCTA:\n" + item.cta : "",
+              item.notes ? "\nNOTIZEN:\n" + item.notes : ""
+            ].filter(Boolean).join("\n");
+
+            state.data[key].push({
+              id: generateId(),
+              title: item.title || theme,
+              platform: item.platform || platforms[(i + idx) % platforms.length],
+              format: item.format || "Reel",
+              funnel: item.funnel || funnels[(i + idx) % funnels.length],
+              status: "idee",
+              notes: fullScript
+            });
+            createdCount++;
+          });
+
+          generated += chunkDates.length;
+          saveData();
+          renderCalendar();
+          updateBatchProgress(generated, totalPosts, `${generated} von ${totalPosts} Skripten fertig...`);
+        }
+
+        setBatchStatus(`${createdCount} Skripte erfolgreich im Kalender gespeichert.`, "success");
+        updateBatchProgress(totalPosts, totalPosts, "Fertig!");
+      } catch (err) {
+        console.error(err);
+        setBatchStatus("Fehler: " + err.message + (createdCount > 0 ? ` (${createdCount} Skripte wurden bereits gespeichert)` : ""), "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "🤖 Plan generieren";
+      }
+    }
+
+    function updateBatchProgress(done, total, msg) {
+      document.getElementById("batch-progress-text").textContent = msg;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      document.getElementById("batch-progress-fill").style.width = pct + "%";
+    }
+
     // Event Listeners
     document.getElementById("prev-month").addEventListener("click", () => {
       state.currentDate.setMonth(state.currentDate.getMonth() - 1);
@@ -889,11 +1909,44 @@
       if (e.target.id === "modal") closeModal();
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") {
+        closeModal();
+        closeSettingsModal();
+        closeBatchModal();
+      }
     });
 
     document.getElementById("save-btn").addEventListener("click", saveItem);
     document.getElementById("cancel-edit").addEventListener("click", resetForm);
+
+    // Settings modal
+    document.getElementById("settings-btn").addEventListener("click", openSettingsModal);
+    document.getElementById("close-settings").addEventListener("click", closeSettingsModal);
+    document.getElementById("settings-cancel").addEventListener("click", closeSettingsModal);
+    document.getElementById("settings-save").addEventListener("click", saveSettingsFromForm);
+    document.getElementById("settings-modal").addEventListener("click", (e) => {
+      if (e.target.id === "settings-modal") closeSettingsModal();
+    });
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+    });
+
+    // AI generation in day popup
+    document.getElementById("ai-generate-btn").addEventListener("click", generateSingleScript);
+    document.getElementById("ai-apply-btn").addEventListener("click", applyAiResultToForm);
+    document.getElementById("ai-discard-btn").addEventListener("click", discardAiResult);
+
+    // Batch modal
+    document.getElementById("batch-plan-btn").addEventListener("click", openBatchModal);
+    document.getElementById("close-batch").addEventListener("click", closeBatchModal);
+    document.getElementById("batch-cancel").addEventListener("click", closeBatchModal);
+    document.getElementById("batch-modal").addEventListener("click", (e) => {
+      if (e.target.id === "batch-modal") closeBatchModal();
+    });
+    document.getElementById("batch-generate-btn").addEventListener("click", generateBatchPlan);
+    document.getElementById("batch-count").addEventListener("input", (e) => {
+      document.getElementById("batch-count-val").textContent = e.target.value;
+    });
 
     renderCalendar();
   })();
